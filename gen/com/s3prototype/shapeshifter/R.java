@@ -17,25 +17,34 @@ public final class R {
          screen margins) for sw720dp devices (e.g. 10" tablets) in landscape here.
     
          */
-        public static final int activity_horizontal_margin=0x7f040000;
-        public static final int activity_vertical_margin=0x7f040001;
+        public static final int activity_horizontal_margin=0x7f050000;
+        public static final int activity_vertical_margin=0x7f050001;
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
     }
     public static final class id {
-        public static final int action_settings=0x7f080000;
+        public static final int action_settings=0x7f090000;
     }
     public static final class layout {
         public static final int activity_launcher=0x7f030000;
     }
     public static final class menu {
-        public static final int launcher=0x7f070000;
+        public static final int launcher=0x7f080000;
+    }
+    public static final class raw {
+        public static final int blue_tri=0x7f040000;
+        public static final int green_enemy=0x7f040001;
+        public static final int orange_tri=0x7f040002;
+        public static final int pink_tri=0x7f040003;
+        public static final int purple_enemy=0x7f040004;
+        public static final int red_tri=0x7f040005;
+        public static final int yellow_enemy=0x7f040006;
     }
     public static final class string {
-        public static final int action_settings=0x7f050001;
-        public static final int app_name=0x7f050000;
-        public static final int hello_world=0x7f050002;
+        public static final int action_settings=0x7f060001;
+        public static final int app_name=0x7f060000;
+        public static final int hello_world=0x7f060002;
     }
     public static final class style {
         /** 
@@ -59,10 +68,10 @@ public final class R {
     
  API 14 theme customizations can go here. 
          */
-        public static final int AppBaseTheme=0x7f060000;
+        public static final int AppBaseTheme=0x7f070000;
         /**  Application theme. 
  All customizations that are NOT specific to a particular API-level can go here. 
          */
-        public static final int AppTheme=0x7f060001;
+        public static final int AppTheme=0x7f070001;
     }
 }

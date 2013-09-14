@@ -1,10 +1,11 @@
 package com.s3prototype.shapeshifter;
 
 import java.util.ArrayList;
-import java.util.Random;
 
+import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Paint;
 
 public class Ship extends MovingEntity{
@@ -17,6 +18,7 @@ public class Ship extends MovingEntity{
 	final int maxAmmo = 3;
 	int ammo = maxAmmo;
 	ArrayList<Bullet> bullets;
+	Bitmap bitmap;
 	
 	Ship(int color){
 		bullets = new ArrayList<Bullet>();
@@ -89,7 +91,15 @@ public class Ship extends MovingEntity{
 		float y = (float) this.y;
 		float width = (float) this.width;
 		float height = (float) this.height;
-		c.drawRect(x - width/2, y - height/2, x + width/2, y + height/2, paint);
+		
+
+	      Matrix matrix = new Matrix();
+	      matrix.postRotate((float) angle);
+	      int bWidth = bitmap.getWidth();
+	      int bHeight = bitmap.getHeight();
+	     Bitmap drawBMP = Bitmap.createBitmap(bitmap, (int)x, (int)y, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
+	     c.drawBitmap(bitmap, matrix, null);
+		/*c.drawRect(x - width/2, y - height/2, x + width/2, y + height/2, paint);*/
 	}//draw()
 	
 	void update(Canvas c){

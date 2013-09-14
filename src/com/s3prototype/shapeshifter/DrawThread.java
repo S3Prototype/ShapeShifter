@@ -7,6 +7,7 @@ import com.s3prototype.shapeshifter.Controller.Stick;
 
 import tv.ouya.console.api.OuyaController;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -52,6 +53,7 @@ public class DrawThread extends Thread{
 	
 	public void InitGame(){
 		if(!threadInitialized){
+			ship[0].bitmap = BitmapFactory.decodeResource(surfaceContext.getResources(), R.raw.blue_tri);
 			gameInitialized = true;
 			threadInitialized = true;
 		}//if()
@@ -69,7 +71,7 @@ public class DrawThread extends Thread{
 			if (c != null) {
 				synchronized (surfaceHolder) {
 					try {
-						c.drawColor(Color.WHITE);
+						c.drawColor(Color.GRAY);
 						ship[0].update(c);
 						ouyaCheck();
 						//update shtuff
@@ -95,7 +97,7 @@ public class DrawThread extends Thread{
 		}
 		
 		double rAxisX = c.getAxisValue(OuyaController.AXIS_RS_X);
-		if(axisX * axisX > OuyaController.STICK_DEADZONE * OuyaController.STICK_DEADZONE) {
+		if(rAxisX * rAxisX > OuyaController.STICK_DEADZONE * OuyaController.STICK_DEADZONE) {
 			  ship[0].turn(rAxisX);
 		} 
 		
