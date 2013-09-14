@@ -3,10 +3,10 @@ package com.s3prototype.shapeshifter;
 import java.util.concurrent.locks.ReentrantLock;
 
 import tv.ouya.console.api.OuyaController;
-
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.InputDevice;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -33,26 +33,6 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback{
 
 	public GameView(Context context, AttributeSet attrs){
 		super(context, attrs);
-	}
-
-	@Override
-	public boolean onGenericMotionEvent(MotionEvent event) {
-		drawThread.deviceID = event.getDeviceId();
-		boolean handled = OuyaController.onGenericMotionEvent(event);
-		return handled || super.onGenericMotionEvent(event);
-	}
-
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		drawThread.deviceID = event.getDeviceId();
-		boolean handled = OuyaController.onKeyDown(keyCode, event);
-		return handled || super.onKeyDown(keyCode, event);
-	}
-
-	@Override
-	public boolean onKeyUp(int keyCode, KeyEvent event) {
-		boolean handled = OuyaController.onKeyUp(keyCode, event);
-		return handled ||super.onKeyUp(keyCode, event);
 	}
 
 	public GameView(LauncherActivity activity, ReentrantLock lock) {

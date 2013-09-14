@@ -20,6 +20,9 @@ public class Ship extends MovingEntity{
 	
 	Ship(int color){
 		bullets = new ArrayList<Bullet>();
+		for(int i = 0; i < maxAmmo; i++){
+			bullets.add(new Bullet());
+		}
 		sColor = color;
 		paint = new Paint();
 		paint.setColor(sColor);
@@ -41,6 +44,8 @@ public class Ship extends MovingEntity{
 			if(yVel > 0 - getMaxSpeed())
 				yVel--;
 		} 
+		
+		isMoving = true;
 	}//move()
 	
 	void turn(double xAxis){
@@ -54,25 +59,29 @@ public class Ship extends MovingEntity{
 	}//turn()
 	
 	void stop(){
-		if(xVel > 0){
+		if(xVel > 1){
 			xVel--;
-		} else if(xVel < 0){
+		} else if(xVel < 1){
 			xVel++;
 		}
 
-		if(yVel > 0){
+		if(yVel > 1){
 			yVel--;
-		} else if(yVel < 0){
+		} else if(yVel < 1){
 			yVel++;
 		}
 		
-		if(xVel > -.80 && xVel < .80){
+		if(xVel >= -1 && xVel <= 1){
 			xVel = 0;
 		}//if()
 		
-		if(yVel > -.95 && yVel < .95){
+		if(yVel >= -1 && yVel <=1){
 			yVel = 0;
 		}//if()
+		
+		if(xVel + yVel == 0){
+			isMoving = false;
+		}
 	}//stop()
 	
 	void draw(Canvas c){
@@ -102,6 +111,8 @@ public class Ship extends MovingEntity{
 				bullet.live = true;
 				bullet.hasBeenCorrected = false;
 				--ammo;
+				bullet.x = x;
+				bullet.y = y;
 				break;// Break the for-loop
 			}// if(!bullet.live)
 		}// for()

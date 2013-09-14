@@ -4,11 +4,10 @@ public class Entity {
 	double x;
 	double y;
 	boolean live = false;
-	double width, height;
+	double width = 90, height = 90;
 	
 	Entity(){
 		x = y = 100;
-		width = height = 90;
 	}
 	
 	Entity(double x, double y){

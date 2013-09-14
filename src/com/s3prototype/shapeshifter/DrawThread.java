@@ -2,12 +2,15 @@ package com.s3prototype.shapeshifter;
 
 import java.util.concurrent.locks.ReentrantLock;
 
-import tv.ouya.console.api.OuyaController;
+import com.s3prototype.shapeshifter.Controller.Axis;
+import com.s3prototype.shapeshifter.Controller.Stick;
 
+import tv.ouya.console.api.OuyaController;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 
@@ -68,7 +71,7 @@ public class DrawThread extends Thread{
 					try {
 						c.drawColor(Color.WHITE);
 						ship[0].update(c);
-						checkController();
+						ouyaCheck();
 						//update shtuff
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -79,25 +82,28 @@ public class DrawThread extends Thread{
 		}// while()
 	}
 	
-	public void checkController(){
-		OuyaController c = OuyaController.getControllerByDeviceId(deviceID);
+	public void ouyaCheck(){
+		OuyaController c = OuyaController.getControllerByPlayer(Controller.player);
+		double axisX = c.getAxisValue(OuyaController.AXIS_LS_X);
+		double axisY = c.getAxisValue(OuyaController.AXIS_LS_Y);
 		
-			float xAxis = c.getAxisValue(OuyaController.AXIS_LS_X);
-			float yAxis = c.getAxisValue(OuyaController.AXIS_LS_Y);
-			
-			if(c.buttonChangedThisFrame(OuyaController.BUTTON_A)){
-				ship[0].shoot();
-			}
-			
-				//if a^2 + b^2 > c^2, it's out of the deadzone
-			if(xAxis * xAxis + yAxis * yAxis < 
-			   OuyaController.STICK_DEADZONE * OuyaController.STICK_DEADZONE){
-				ship[0].stop();
-				return;
-			}//if()
-			
-			ship[0].move(xAxis, yAxis);
-	}
+		if(axisX * axisX + axisY * axisY < OuyaController.STICK_DEADZONE * OuyaController.STICK_DEADZONE) {
+			  axisX = axisY = 0.0f;
+			  ship[0].stop();
+		} else {
+			ship[0].move(axisX, axisY);
+		}
+		
+		double rAxisX = c.getAxisValue(OuyaController.AXIS_RS_X);
+		if(axisX * axisX > OuyaController.STICK_DEADZONE * OuyaController.STICK_DEADZONE) {
+			  ship[0].turn(rAxisX);
+		} 
+		
+		
+		if(c.buttonPressedThisFrame(OuyaController.BUTTON_O)){
+			ship[0].shoot();
+		}
+	}//ouyaCheck()
 
 	public void onTouch(MotionEvent event){
 	}//onTouch()

@@ -11,6 +11,7 @@ public class MovingEntity extends Entity{
 	double xVel, yVel;
 	private int maxSpeed = 15;
 	double angle;
+	boolean isMoving = false;
 	
 	public int getMaxSpeed() {
 		return maxSpeed;

@@ -11,15 +11,19 @@ public class Bullet extends MovingEntity{
 	double radius;
 	boolean hasBeenCorrected = false;
 	
-	void Bullet(int color){
+	Bullet(){
+		this(Color.BLACK);
+	}
+	
+	Bullet(int color){
 		bColor = color;
 		paint = new Paint();
 		paint.setColor(color);
 		radius = Math.sqrt( Math.pow(width, 2) + Math.pow(height, 2) );
 	}
 	
-	void Bullet(int color, double r){
-		Bullet(color);
+	Bullet(int color, double r){
+		this(color);
 		radius = r;
 	}
 	
